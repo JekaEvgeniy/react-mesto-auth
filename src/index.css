@@ -50,8 +50,13 @@
 
 
 @import url(./blocks/popup/__container/popup__container.css);
+@import url(./blocks/popup/__container/_type/popup__container_type_info.css);
 @import url(./blocks/popup/__form/popup__form.css);
+
 @import url(./blocks/popup/__title/popup__title.css);
+@import url(./blocks/popup/__title/_centered/popup__title_centered.css);
+@import url(./blocks/popup/__title/_phone-oversized/popup__title_phone-oversized.css);
+
 @import url(./blocks/popup/__input/popup__input.css);
 @import url(./blocks/popup/__input/_type/popup__input_type_error.css);
 
@@ -65,6 +70,10 @@
 @import url(./blocks/popup-figure/popup-figure.css);
 @import url(./blocks/popup-figure/__img/popup-figure__img.css);
 @import url(./blocks/popup-figure/__figcaption/popup-figure__figcaption.css);
+
+@import url(./blocks/popup/__circle-badge/popup__circle-badge.css);
+@import url(./blocks/popup/__circle-badge/_type/popup__circle-badge_type_error.css);
+@import url(./blocks/popup/__circle-badge/_type/popup__circle-badge_type_success.css);
 
 @import url(./blocks/footer/footer.css);
 @import url(./blocks/footer/__copyright/footer__copyright.css);

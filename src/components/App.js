@@ -8,6 +8,7 @@ import Footer from './Footer';
 
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import InfoTooltip from './InfoTooltip';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
@@ -155,6 +156,11 @@ function App() {
 				<ImagePopup
 					title="Попап с картинкой"
 					card={selectedCard}
+					onClose={closeAllPopups}
+				/>
+
+				<InfoTooltip
+					title="Попап с сообщением"
 					onClose={closeAllPopups}
 				/>
 
