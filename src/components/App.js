@@ -29,6 +29,8 @@ function App() {
 
 	const [cards, setCards] = React.useState([]);
 
+	const [loggedIn, setLoggedIn] = React.useState(false);
+
 	React.useEffect(() => {
 
 		api.getUserInfo()
@@ -150,16 +152,22 @@ function App() {
 						<Route
 							path="/"
 							element={
-								<Main
-									onEditProfile={handleEditProfileClick}
-									onEditAvatar={handleEditAvatarClick}
-									onAddPlace={handleAddPlaceClick}
 
-									cards={cards}
-									onCardClick={handleCardClick}
-									onCardLike={handleCardLike}
-									onCardDelete={handleCardDelete}
-								/>
+								loggedIn ? (
+									<Main
+										onEditProfile={handleEditProfileClick}
+										onEditAvatar={handleEditAvatarClick}
+										onAddPlace={handleAddPlaceClick}
+
+										cards={cards}
+										onCardClick={handleCardClick}
+										onCardLike={handleCardLike}
+										onCardDelete={handleCardDelete}
+									/>
+								) : (
+									<Navigate to="/sign-in" />
+								)
+
 							}
 						/>
 
