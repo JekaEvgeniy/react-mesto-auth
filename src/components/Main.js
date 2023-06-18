@@ -15,6 +15,29 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, cards, onCardLike, onCa
 	return (
 
 		<main className="content">
+
+			<section className="login">
+				<h2 className="login__header">Регистрация</h2>
+				<form action="#" className="login__form">
+					<input className="login__input" type="email" name="email" placeholder="Email" required />
+					<input className="login__input" type="password" name="password" placeholder="Пароль" required />
+					<button className="login__button" type="submit">Зарегистрироваться</button>
+				</form>
+
+				<p className="login__caption">Уже зарегистрированы? <a className="login__link" href="#">Войти</a></p>
+			</section>
+
+
+			<section className="login">
+				<h2 className="login__header">Вход</h2>
+				<form action="#" className="login__form">
+					<input className="login__input" type="email" name="email" placeholder="Email" required />
+					<input className="login__input" type="password" name="password" placeholder="Пароль" required />
+					<button className="login__button" type="submit">Войти</button>
+				</form>
+			</section>
+
+
 			<section className="profile">
 				<div className="profile__figure">
 					<img className="profile__avatar" src={currentUser.avatar} alt="Фотография" />
@@ -33,7 +56,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, cards, onCardLike, onCa
 				<button onClick={onAddPlace} className="profile__button profile__button_type_add" type="button" name="button" aria-label="Добавить"></button>
 			</section>
 
-			<section id="cards" className="cards" aria-label="Посещенные места">
+			{/* <section id="cards" className="cards" aria-label="Посещенные места">
 				{
 					cards.map((card) => (
 						<Card
@@ -45,7 +68,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, cards, onCardLike, onCa
 						/>
 					))
 				}
-			</section>
+			</section> */}
 
 		</main>
 	)
