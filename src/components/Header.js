@@ -5,13 +5,15 @@ function Header() {
 		<header className="header">
 			<img className="header__logo" src={headerLogo} alt="Логотип" loading="lazy" />
 
+{/*
 			<div className="header__actions">
 				<p className="header__email">email@mail.com</p>
 				<button className="header__button" type="button">Выйти</button>
 			</div>
-			 <div className="header__actions">
+			<div className="header__actions">
 				<a href="#" className="header__link">Регистрация</a>
 			</div>
+ */}
 		</header>
 	)
 }
