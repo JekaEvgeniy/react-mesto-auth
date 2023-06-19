@@ -26,7 +26,7 @@ function Header({ ...props }) {
 			{
 				props.isPageSignIn && (
 					<div className='header__actions'>
-						<Link to="/signout" className='header__link'>Регистрация</Link>
+						<Link to="/signup" className='header__link'>Регистрация</Link>
 					</div>
 				)
 			}
