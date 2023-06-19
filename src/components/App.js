@@ -28,6 +28,8 @@ function App() {
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
+	const [isInfoTooltip, setIsInfoTooltip] = useState(null);
+
 	const [selectedCard, setSelectedCard] = useState(null);
 
 	const [currentUser, setCurrentUser] = useState({});
@@ -62,6 +64,10 @@ function App() {
 
 
 
+	const handleInfoTooltip = (status) => {
+		setIsInfoTooltip(status);
+	}
+
 	const handleEditAvatarClick = () => {
 		setIsEditAvatarPopupOpen(true);
 	}
@@ -78,6 +84,7 @@ function App() {
 		setIsEditProfilePopupOpen(false);
 		setIsEditAvatarPopupOpen(false);
 		setIsAddPlacePopupOpen(false);
+		setIsInfoTooltip(null);
 
 		setSelectedCard(null);
 	}
@@ -150,7 +157,9 @@ function App() {
 				setLoggedIn(true);
 				navigate('/');
 			})
-			.catch(err => console.error(err));
+			.catch(err => {
+				console.error(err);
+			});
 	}
 
 	const tockenCheck = () => {
@@ -166,7 +175,9 @@ function App() {
 
 					navigate('/');
 				})
-				.catch(err => console.error(err));
+				.catch((err) => {
+					console.error(err);
+				});
 		}
 	}
 
@@ -206,11 +217,11 @@ function App() {
 				<Routes>
 					<Route
 						path="/signup"
-						element={<Register handleRegister={handleRegister} />}
+						element={<Register handleRegister={handleRegister} handleInfoTooltip={handleInfoTooltip} />}
 					/>
 					<Route
 						path="/signin"
-						element={<Login handleLogin={handleLogin} />}
+						element={<Login handleLogin={handleLogin} handleInfoTooltip={handleInfoTooltip} />}
 					/>
 
 					<Route
@@ -267,8 +278,9 @@ function App() {
 				/>
 
 				<InfoTooltip
-					title="Попап с сообщением"
+					title="Попап с информацией"
 					onClose={closeAllPopups}
+					status={isInfoTooltip}
 				/>
 
 			</div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as auth from '../utils/Auth';
 
-function Login({ handleLogin }) {
+function Login({ handleLogin, handleInfoTooltip }) {
 	const navigate = useNavigate();
 
 	const [formValue, setFormValue] = useState({
@@ -32,12 +32,15 @@ function Login({ handleLogin }) {
 				if (data.token) {
 					localStorage.setItem('jwt', data.token);
 					handleLogin();
-					// handleLogin(data.user);
+					// handleInfoTooltip('success');
 
 					navigate('/');
 				}
 			})
-			.catch(err => console.error(err));
+			.catch((err) => {
+				console.error(err)
+				handleInfoTooltip('error');
+			});
 	}
 
 	return (

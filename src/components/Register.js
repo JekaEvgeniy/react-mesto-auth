@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import * as auth from '../utils/Auth';
 
-function Register(){
+function Register({ handleInfoTooltip }){
 	const navigate = useNavigate();
 
 	const [formValue, setFormValue] = useState({
@@ -29,8 +29,12 @@ function Register(){
 			.then((data) => {
 				console.log(data);
 				navigate('/signin');
+				handleInfoTooltip('success');
 			})
-			.catch(err => console.error(err));
+			.catch((err) => {
+				console.error(err)
+				handleInfoTooltip('error');
+			});
 	}
 
 
