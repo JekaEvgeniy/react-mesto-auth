@@ -34,6 +34,8 @@ function App() {
 
 	const [cards, setCards] = useState([]);
 
+	const [email, setEmail] = useState(null);
+
 	const navigate = useNavigate();
 	// https://reactrouter.com/en/main/hooks/use-navigate
 	// ERROR useNavigate() may be used only in the context of a <Router> component.
@@ -157,6 +159,9 @@ function App() {
 		if (jwt) {
 			auth.getContent(jwt)
 				.then(user => {
+
+					setEmail(user.data.email);
+
 					handleLogin(user);
 
 					navigate('/');
@@ -192,7 +197,7 @@ function App() {
 					<Route
 						path="/"
 						element={
-							<Header isPageIndex />
+							<Header isPageIndex email={email} />
 						}
 					/>
 

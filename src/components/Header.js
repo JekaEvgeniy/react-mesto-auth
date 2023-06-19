@@ -11,6 +11,7 @@ function Header({ ...props }) {
 		navigate('/signin');
 	}
 
+
 	return (
 		<header className="header">
 			<img className="header__logo" src={headerLogo} alt="Логотип" loading="lazy" />
@@ -34,7 +35,7 @@ function Header({ ...props }) {
 			{
 				props.isPageIndex && (
 					<div className='header__actions'>
-						<p className="header__email">email@mail.com</p>
+						<p className="header__email">{props.email}</p>
 						<button onClick={signOut} className="header__button" type="button">Выйти</button>
 					</div>
 				)
