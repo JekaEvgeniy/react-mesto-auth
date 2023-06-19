@@ -1,7 +1,10 @@
-import React from "react";
-import { BrowserRouter, Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Route, Routes, Navigate, useNavigate, BrowserRouter } from 'react-router-dom';
+
+import { ProtectedRoute } from './ProtectedRoute.js';
 
 import api from '../utils/Api';
+import * as auth from '../utils/Auth';
 
 import Header from './Header';
 import Main from './Main';
@@ -19,19 +22,24 @@ import Register from './Register';
 import Login from './Login';
 
 function App() {
-	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+	const [loggedIn, setLoggedIn] = useState(false);
 
-	const [selectedCard, setSelectedCard] = React.useState(null);
+	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
 
-	const [currentUser, setCurrentUser] = React.useState({});
+	const [selectedCard, setSelectedCard] = useState(null);
 
-	const [cards, setCards] = React.useState([]);
+	const [currentUser, setCurrentUser] = useState({});
 
-	const [loggedIn, setLoggedIn] = React.useState(false);
+	const [cards, setCards] = useState([]);
 
-	React.useEffect(() => {
+	const navigate = useNavigate();
+	// https://reactrouter.com/en/main/hooks/use-navigate
+	// ERROR useNavigate() may be used only in the context of a <Router> component.
+	// https://bobbyhadz.com/blog/react-usenavigate-may-be-used-only-in-context-of-router
+
+	useEffect(() => {
 
 		api.getUserInfo()
 			.then(setCurrentUser)
@@ -91,8 +99,8 @@ function App() {
 
 	function handleAddNewCard(data) {
 		api.addNewCard(data)
-			.then((newCard)=> {
-				setCards((state) => [newCard, ...state] );
+			.then((newCard) => {
+				setCards((state) => [newCard, ...state]);
 				closeAllPopups();
 			})
 			.catch((err) => {
@@ -121,71 +129,92 @@ function App() {
 			.catch(err => console.error(err));
 	}
 
+	const handleLogin = () => {
+		setLoggedIn(true);
+		// setCurrentUser({ username, email });
+	}
+
+	const handleRegister = ({ email, password }) => {
+		auth.register(email, password)
+			.then((res) => {
+				console.log(res);
+				localStorage.setItem("jwt", res.token);
+
+				// setLoggedIn(true);
+				// navigate('/');
+			})
+			.catch(err => console.error(err));
+	}
+
+	const tockenCheck = () => {
+		const jwt = localStorage.getItem('jwt');
+		console.log(`jwt = ${jwt}`);
+
+		if (jwt) {
+			auth.getContent(jwt)
+				.then(user => {
+					handleLogin(user);
+
+					navigate('/');
+				})
+				.catch(err => console.error(err));
+		}
+	}
+
+	useEffect(() => {
+		tockenCheck();
+	}, []);
+
+
 	return (
-		<BrowserRouter>
 			<CurrentUserContext.Provider value={currentUser}>
 				<div className="page">
+
 					<Routes>
-						<Route
-							path="/"
-							element={<Header />}
-						/>
-
-						<Route
-							path="sign-up"
-							element={<Header />}
-						/>
-
-						<Route
-							path="/"
-							element={<Header />}
-						/>
 
 						<Route
 							path="*"
-							element={<Header />}
-						/>
-
-					</Routes>
-
-					<Routes>
-						<Route
-							path="/"
 							element={
-
-								loggedIn ? (
-									<Main
-										onEditProfile={handleEditProfileClick}
-										onEditAvatar={handleEditAvatarClick}
-										onAddPlace={handleAddPlaceClick}
-
-										cards={cards}
-										onCardClick={handleCardClick}
-										onCardLike={handleCardLike}
-										onCardDelete={handleCardDelete}
-									/>
-								) : (
-									<Navigate to="/sign-in" />
-								)
-
+								<Header />
 							}
 						/>
 
 						<Route
-							path="sign-up"
-							element={<Register />}
+							path="/signup"
+							element={<Register handleRegister={handleRegister}/>}
 						/>
 						<Route
-							path="*"
-							element={<Login />}
+							path="/signin"
+							element={<Login handleLogin={handleLogin} />}
 						/>
 
 						<Route
 							path="/"
 							element={
+								<>
+								<ProtectedRoute
+									loggedIn={loggedIn}
+									element={Main}
+
+									onEditProfile={handleEditProfileClick}
+									onEditAvatar={handleEditAvatarClick}
+									onAddPlace={handleAddPlaceClick}
+
+									cards={cards}
+									onCardClick={handleCardClick}
+									onCardLike={handleCardLike}
+									onCardDelete={handleCardDelete}
+								/>
+
 								<Footer />
+								</>
 							}
 						/>
+
+						<Route path="*"
+							element={loggedIn ? <Navigate to='/' /> : <Navigate to='/signup' replace />}
+						/>
+
 					</Routes>
 
 					<EditProfilePopup
@@ -219,7 +248,6 @@ function App() {
 
 				</div>
 			</CurrentUserContext.Provider>
-		</BrowserRouter>
 	);
 }
 

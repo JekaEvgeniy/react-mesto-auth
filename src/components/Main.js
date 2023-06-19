@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from 'react';
 import Card from './Card';
 
 import CurrentUserContext from '../contexts/CurrentUserContext';
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, cards, onCardLike, onCardDelete, onCardClick }) {
 
-	const currentUser = React.useContext(CurrentUserContext);
+	const currentUser = useContext(CurrentUserContext);
 
 	if (!currentUser) {
 		// При обновлении данные не успевают загружаться и вываливаются ошибки

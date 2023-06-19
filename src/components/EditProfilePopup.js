@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PopupWithForm from './PopupWithForm';
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
-	const currentUser = React.useContext(CurrentUserContext);
+	const currentUser = useContext(CurrentUserContext);
 
-	const [name, setName] = React.useState('');
-	const [description, setDescription] = React.useState('');
+	const [name, setName] = useState('');
+	const [description, setDescription] = useState('');
 
-	React.useEffect(() => {
+	useEffect(() => {
 		// хук isOpen реализует сброс значении input's при открытии popup
 
 		if (currentUser.name) {

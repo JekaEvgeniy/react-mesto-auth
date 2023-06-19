@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
 function AddPlacePopup({ isOpen, onClose, onAddNewCard }){
 
-	const [link, setLink] = React.useState('');
-	const [name, setName] = React.useState('');
+	const [link, setLink] = useState('');
+	const [name, setName] = useState('');
 
 
-	React.useEffect(() => {
+	useEffect(() => {
 		// При открытии popup сбрасываем input
 
 		setLink('');
