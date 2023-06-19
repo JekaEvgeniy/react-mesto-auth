@@ -41,6 +41,10 @@ function App() {
 
 	useEffect(() => {
 
+		if (! loggedIn ) {
+			return;
+		}
+
 		api.getUserInfo()
 			.then(setCurrentUser)
 			.catch(err => console.error(err));
@@ -51,7 +55,10 @@ function App() {
 			})
 			.catch(err => console.error(err));
 
-	}, []);
+	}, [loggedIn]);
+
+
+
 
 	const handleEditAvatarClick = () => {
 		setIsEditAvatarPopupOpen(true);
