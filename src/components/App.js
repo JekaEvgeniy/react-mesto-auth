@@ -169,16 +169,32 @@ function App() {
 	return (
 			<CurrentUserContext.Provider value={currentUser}>
 				<div className="page">
-
 					<Routes>
 
 						<Route
-							path="*"
-							element={
-								<Header />
-							}
+								path="/signup"
+								element={
+									<Header isPageSignUp />
+								}
 						/>
 
+						<Route
+								path="/signin"
+								element={
+									<Header isPageSignIn />
+								}
+						/>
+
+						<Route
+								path="/"
+								element={
+									<Header isPageIndex />
+								}
+						/>
+
+					</Routes>
+
+					<Routes>
 						<Route
 							path="/signup"
 							element={<Register handleRegister={handleRegister}/>}
