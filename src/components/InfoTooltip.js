@@ -6,7 +6,9 @@ function InfoTooltip({ onClose, status  }) {
 
 			<div className="popup__inside popup__inside_contains_info popup__inside_width_sm">
 				<div className="popup__container popup__container_type_info">
+
 					<div className={`popup__circle-badge popup__circle-badge_type_${status}`}></div>
+
 					<h2 className="popup__title popup__title_centered popup__title_phone-oversized">
 						{status == 'success' ?
 							'Вы успешно зарегистрировались!' :
@@ -14,9 +16,6 @@ function InfoTooltip({ onClose, status  }) {
 						}
 					</h2>
 
-
-					{/* <div className="popup__circle-badge popup__circle-badge_type_error"></div> */}
-					{/* <h2 className="popup__title popup__title_centered popup__title_phone-oversized">Что-то пошло не так!<br/>Попробуйте ещё раз.</h2> */}
 				</div>
 				<button onClick={onClose} className="popup__close" type="button" aria-label="Закрыть"></button>
 			</div>

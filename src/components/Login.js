@@ -27,18 +27,19 @@ function Login({ handleLogin, handleInfoTooltip }) {
 
 		auth.authorize({ email, password })
 			.then(data => {
-				console.log(`>>>> data.jwt = ${data.token}`);
 
 				if (data.token) {
 					localStorage.setItem('jwt', data.token);
+
 					handleLogin();
-					// handleInfoTooltip('success');
 
 					navigate('/');
 				}
+
 			})
 			.catch((err) => {
-				console.error(err)
+				console.error(err);
+
 				handleInfoTooltip('error');
 			});
 	}
