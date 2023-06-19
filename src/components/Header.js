@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import headerLogo from '../images/header/header-logo.svg';
 
-function Header({...props}) {
+function Header({ ...props }) {
 	const navigate = useNavigate();
 
 	function signOut() {
@@ -41,7 +41,7 @@ function Header({...props}) {
 			}
 
 
-{/*
+			{/*
 			<div className="header__actions">
 				<p className="header__email">email@mail.com</p>
 				<button className="header__button" type="button">Выйти</button>

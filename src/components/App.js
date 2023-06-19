@@ -131,24 +131,21 @@ function App() {
 
 	const handleLogin = () => {
 		setLoggedIn(true);
-		// setCurrentUser({ username, email });
 	}
 
 	const handleRegister = ({ email, password }) => {
 		auth.register(email, password)
 			.then((res) => {
-				console.log(res);
 				localStorage.setItem("jwt", res.token);
 
-				// setLoggedIn(true);
-				// navigate('/');
+				setLoggedIn(true);
+				navigate('/');
 			})
 			.catch(err => console.error(err));
 	}
 
 	const tockenCheck = () => {
 		const jwt = localStorage.getItem('jwt');
-		console.log(`jwt = ${jwt}`);
 
 		if (jwt) {
 			auth.getContent(jwt)
@@ -167,47 +164,47 @@ function App() {
 
 
 	return (
-			<CurrentUserContext.Provider value={currentUser}>
-				<div className="page">
-					<Routes>
+		<CurrentUserContext.Provider value={currentUser}>
+			<div className="page">
+				<Routes>
 
-						<Route
-								path="/signup"
-								element={
-									<Header isPageSignUp />
-								}
-						/>
+					<Route
+						path="/signup"
+						element={
+							<Header isPageSignUp />
+						}
+					/>
 
-						<Route
-								path="/signin"
-								element={
-									<Header isPageSignIn />
-								}
-						/>
+					<Route
+						path="/signin"
+						element={
+							<Header isPageSignIn />
+						}
+					/>
 
-						<Route
-								path="/"
-								element={
-									<Header isPageIndex />
-								}
-						/>
+					<Route
+						path="/"
+						element={
+							<Header isPageIndex />
+						}
+					/>
 
-					</Routes>
+				</Routes>
 
-					<Routes>
-						<Route
-							path="/signup"
-							element={<Register handleRegister={handleRegister}/>}
-						/>
-						<Route
-							path="/signin"
-							element={<Login handleLogin={handleLogin} />}
-						/>
+				<Routes>
+					<Route
+						path="/signup"
+						element={<Register handleRegister={handleRegister} />}
+					/>
+					<Route
+						path="/signin"
+						element={<Login handleLogin={handleLogin} />}
+					/>
 
-						<Route
-							path="/"
-							element={
-								<>
+					<Route
+						path="/"
+						element={
+							<>
 								<ProtectedRoute
 									loggedIn={loggedIn}
 									element={Main}
@@ -223,47 +220,47 @@ function App() {
 								/>
 
 								<Footer />
-								</>
-							}
-						/>
-
-						<Route path="*"
-							element={loggedIn ? <Navigate to='/' /> : <Navigate to='/signup' replace />}
-						/>
-
-					</Routes>
-
-					<EditProfilePopup
-						isOpen={isEditProfilePopupOpen}
-						onClose={closeAllPopups}
-						onUpdateUser={handleUpdateUser}
+							</>
+						}
 					/>
 
-					<EditAvatarPopup
-						isOpen={isEditAvatarPopupOpen}
-						onClose={closeAllPopups}
-						onUpdateAvatar={handleUpdateAvatar}
+					<Route path="*"
+						element={loggedIn ? <Navigate to='/' /> : <Navigate to='/signup' replace />}
 					/>
 
-					<AddPlacePopup
-						isOpen={isAddPlacePopupOpen}
-						onClose={closeAllPopups}
-						onAddNewCard={handleAddNewCard}
-					/>
+				</Routes>
 
-					<ImagePopup
-						title="Попап с картинкой"
-						card={selectedCard}
-						onClose={closeAllPopups}
-					/>
+				<EditProfilePopup
+					isOpen={isEditProfilePopupOpen}
+					onClose={closeAllPopups}
+					onUpdateUser={handleUpdateUser}
+				/>
 
-					<InfoTooltip
-						title="Попап с сообщением"
-						onClose={closeAllPopups}
-					/>
+				<EditAvatarPopup
+					isOpen={isEditAvatarPopupOpen}
+					onClose={closeAllPopups}
+					onUpdateAvatar={handleUpdateAvatar}
+				/>
 
-				</div>
-			</CurrentUserContext.Provider>
+				<AddPlacePopup
+					isOpen={isAddPlacePopupOpen}
+					onClose={closeAllPopups}
+					onAddNewCard={handleAddNewCard}
+				/>
+
+				<ImagePopup
+					title="Попап с картинкой"
+					card={selectedCard}
+					onClose={closeAllPopups}
+				/>
+
+				<InfoTooltip
+					title="Попап с сообщением"
+					onClose={closeAllPopups}
+				/>
+
+			</div>
+		</CurrentUserContext.Provider>
 	);
 }
 
